@@ -1,14 +1,16 @@
-import React from 'react'
-import { Droppable } from '@hello-pangea/dnd'
-import { Repeat, SkipBack, Play, Pause, SkipForward, Shuffle } from 'lucide-react'
+import React from 'react';
+import { Droppable } from '@hello-pangea/dnd';
+import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle } from 'lucide-react';
+import { formatTime } from '@/utlis/formatTime';
 
-export default function RightSidebar({ currentSong, isPlaying, progress, howlerRef, formatTime }) {
+export default function RightSidebar({ currentSong, isPlaying, progress, playSong, playNextSong, playPreviousSong, howlerRef }) {
   return (
     <div className="w-80 bg-gradient-to-b from-[#400808] to-black p-6 flex flex-col">
       <div className="flex-grow">
         {/* You can add other content here if needed */}
       </div>
 
+      {/* Now Playing Section */}
       <Droppable droppableId="nowPlaying">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -27,7 +29,7 @@ export default function RightSidebar({ currentSong, isPlaying, progress, howlerR
                     />
                   </div>
 
-                  <div className="text-center mb-4">
+                  <div className="text-center mb-4 ">
                     <h3 className="text-lg font-bold">{currentSong.title}</h3>
                     <p className="text-sm text-gray-300">{currentSong.artist}</p>
                   </div>
@@ -50,7 +52,7 @@ export default function RightSidebar({ currentSong, isPlaying, progress, howlerR
                     <button className="text-white/80 hover:text-white transition-colors">
                       <Repeat className="h-5 w-5" />
                     </button>
-                    <button className="text-white/80 hover:text-white transition-colors">
+                    <button onClick={playPreviousSong} className="text-white/80 hover:text-white transition-colors">
                       <SkipBack className="h-5 w-5" />
                     </button>
                     <button
@@ -63,7 +65,7 @@ export default function RightSidebar({ currentSong, isPlaying, progress, howlerR
                         <Play className="h-6 w-6" />
                       )}
                     </button>
-                    <button className="text-white/80 hover:text-white transition-colors">
+                    <button onClick={playNextSong} className="text-white/80 hover:text-white transition-colors">
                       <SkipForward className="h-5 w-5" />
                     </button>
                     <button className="text-white/80 hover:text-white transition-colors">
@@ -78,5 +80,5 @@ export default function RightSidebar({ currentSong, isPlaying, progress, howlerR
         )}
       </Droppable>
     </div>
-  )
+  );
 }
